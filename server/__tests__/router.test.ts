@@ -30,5 +30,14 @@ describe('router', () => {
     it('returns an array with items', async () => {
       expect(response.body).toBeArray()
     })
+
+    it('item in array has correct properties', async () => {
+      expect(response.body[0]).toHaveProperty('name')
+      expect(response.body[0]).toHaveProperty('score')
+      expect(response.body[0]).toHaveProperty('previousScore')
+      expect(response.body[0]).toHaveProperty('icon')
+      expect(response.body[0]).toHaveProperty('benchMark')
+      expect(response.body[0]).toHaveProperty('name')
+    })
   })
 })
