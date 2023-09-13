@@ -37,7 +37,9 @@ describe('router', () => {
       expect(response.body[0]).toHaveProperty('previousScore')
       expect(response.body[0]).toHaveProperty('icon')
       expect(response.body[0]).toHaveProperty('benchMark')
-      expect(response.body[0]).toHaveProperty('name')
+
+      expect(response.body[0].benchMark).toHaveProperty('name')
+      expect(response.body[0].benchMark).toHaveProperty('score')
     })
   })
 })
