@@ -26,5 +26,9 @@ describe('router', () => {
         'application/json; charset=utf-8'
       )
     })
+
+    it('returns an array with items', async () => {
+      expect(response.body).toBeArray()
+    })
   })
 })
