@@ -11,53 +11,108 @@ import { useEffect, useState } from 'react'
 
 type ContainerProps = {
   title: string
+  drivers: Driver[]
+}
+
+type DriverProps = {
+  driver: Driver
+}
+
+type BenchMark = {
+  name: string
+  score: number
+}
+
+type Icon =
+  | 'balance'
+  | 'bubble'
+  | 'checkMark'
+  | 'computer'
+  | 'flower'
+  | 'heart'
+  | 'people'
+  | 'sentiment'
+  | 'trophy'
+
+type DriverName =
+  | 'Workload'
+  | 'Relationship with Colleagues'
+  | 'Meaningfulness and Participation'
+  | 'Workplace and Tools'
+  | 'Feedback and Commnucation'
+  | 'Health'
+  | 'Worklife balance'
+  | 'Happiness'
+  | 'Wellbeing'
+
+type Driver = {
+  name: DriverName
+  score: number
+  previousScore: number
+  icon: Icon
+  benchMark: BenchMark
 }
 
 function Container(props: ContainerProps) {
-  const { title } = props
+  const { title, drivers } = props
 
   return (
     <Grid item xs={12} md={6}>
       <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
         <Typography variant="h6">{title}</Typography>
-        <Driver />
+        {drivers.map((driver) => (
+          <Driver driver={driver} />
+        ))}
       </Paper>
     </Grid>
   )
 }
 
-function Driver() {
+function Driver(props: DriverProps) {
+  const {
+    driver: { benchMark, name, score },
+  } = props
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Box display="flex">
         <CheckCircleOutlined sx={{ fontSize: 48 }} />
         <Box>
-          <Typography>Workload</Typography>
-          <Typography>Benchmark - Media Telecom</Typography>
+          <Typography>{name}</Typography>
+          <Typography>{benchMark.name}</Typography>
         </Box>
       </Box>
-      <Typography>4.1</Typography>
+      <Typography>{score}</Typography>
     </Box>
   )
 }
 
+function sortHighestRating(drivers: Driver[]) {
+  return drivers.sort((driverA, driverB) => driverB.score - driverA.score)
+}
+
+function sortLowestRating(drivers: Driver[]) {
+  return drivers.sort((driverA, driverB) => driverA.score - driverB.score)
+}
+
 function App() {
-  const [state, setState] = useState(null)
+  const [drivers, setDrivers] = useState<null | Driver[]>(null)
 
   useEffect(() => {
-    if (state) return
+    if (drivers) return
     fetch('/api')
       .then((res) => res.json())
       .then((res) => {
-        setState(res)
+        setDrivers(res)
       })
       .catch((err) => {
         console.error(err)
       })
-  }, [state])
+  }, [drivers])
 
   const theme = useTheme()
   const isMedium = useMediaQuery(theme.breakpoints.up('md'))
+
+  if (!drivers) return
 
   return (
     <Box
@@ -74,19 +129,23 @@ function App() {
           <Typography variant="h5">Drivers</Typography>
         </Box>
         <Grid container spacing={4}>
-          <Container title="Highest rating" />
-          <Container title="Lowest rating" />
+          <Container
+            title="Highest rating"
+            drivers={sortHighestRating(drivers).slice(0, 3)}
+          />
+          <Container
+            title="Lowest rating"
+            drivers={sortLowestRating(drivers).slice(0, 3)}
+          />
           <Grid item xs={12}>
             <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
               <Typography variant="h6">Other</Typography>
               <Grid container spacing={isMedium ? 10 : 0}>
                 <Grid item xs={12} md={6}>
-                  <Driver />
+                  {/* <Driver /> */}
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <Grid item>
-                    <Driver />
-                  </Grid>
+                  <Grid item>{/* <Driver /> */}</Grid>
                 </Grid>
               </Grid>
             </Paper>
