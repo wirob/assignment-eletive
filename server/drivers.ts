@@ -88,7 +88,7 @@ const drivers: Driver[] = [
     name: 'Health',
     score: 4.1,
     previousScore: 4.2,
-    icon: 'bubble',
+    icon: 'heart',
     benchMark: {
       name: 'Media & Telecommunication',
       score: 2.2,
