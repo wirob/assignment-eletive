@@ -9,31 +9,33 @@ import {
   PeopleAlt,
   SentimentSatisfied,
 } from '@mui/icons-material'
+import type { SxProps } from '@mui/material'
 
 type MapToIconProps = {
   icon: Icon
+  style: SxProps
 }
 
-function MapToIcon({ icon }: MapToIconProps) {
+function MapToIcon({ icon, style }: MapToIconProps) {
   switch (icon) {
     case 'balance':
-      return <Balance />
+      return <Balance sx={style} />
     case 'bubble':
-      return <ChatBubble />
+      return <ChatBubble sx={style} />
     case 'checkMark':
-      return <CheckCircleOutlined />
+      return <CheckCircleOutlined sx={style} />
     case 'computer':
-      return <Devices />
+      return <Devices sx={style} />
     case 'flower':
-      return <EmojiNature />
+      return <EmojiNature sx={style} />
     case 'heart':
-      return <Favorite />
+      return <Favorite sx={style} />
     case 'people':
-      return <PeopleAlt />
+      return <PeopleAlt sx={style} />
     case 'sentiment':
-      return <SentimentSatisfied />
+      return <SentimentSatisfied sx={style} />
     case 'trophy':
-      return <EmojiEvents />
+      return <EmojiEvents sx={style} />
     default:
       return null
   }

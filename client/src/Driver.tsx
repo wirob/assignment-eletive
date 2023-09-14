@@ -12,7 +12,7 @@ function Driver(props: DriverProps) {
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Box display="flex">
-        <MapToIcon icon={icon} />
+        <MapToIcon icon={icon} style={{ fontSize: 48 }} />
         <Box>
           <Typography>{name}</Typography>
           <Typography>{benchMark.name}</Typography>
