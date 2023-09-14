@@ -6,93 +6,13 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-
-import {
-  Balance,
-  ChatBubble,
-  CheckCircleOutlined,
-  Devices,
-  EmojiNature,
-  EmojiEvents,
-  Favorite,
-  PeopleAlt,
-  RocketLaunch,
-  SentimentSatisfied,
-} from '@mui/icons-material'
-
-type Icon =
-  | 'balance'
-  | 'bubble'
-  | 'checkMark'
-  | 'computer'
-  | 'flower'
-  | 'heart'
-  | 'people'
-  | 'sentiment'
-  | 'trophy'
-
-type MapToIconProps = {
-  icon: Icon
-}
-
-function MapToIcon({ icon }: MapToIconProps) {
-  switch (icon) {
-    case 'balance':
-      return <Balance />
-    case 'bubble':
-      return <ChatBubble />
-    case 'checkMark':
-      return <CheckCircleOutlined />
-    case 'computer':
-      return <Devices />
-    case 'flower':
-      return <EmojiNature />
-    case 'heart':
-      return <Favorite />
-    case 'people':
-      return <PeopleAlt />
-    case 'sentiment':
-      return <SentimentSatisfied />
-    case 'trophy':
-      return <EmojiEvents />
-    default:
-      return null
-  }
-}
-
+import { RocketLaunch } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
+import Driver from './Driver'
 
 type ContainerProps = {
   title: string
   drivers: Driver[]
-}
-
-type DriverProps = {
-  driver: Driver
-}
-
-type BenchMark = {
-  name: string
-  score: number
-}
-
-type DriverName =
-  | 'Workload'
-  | 'Relationship with Colleagues'
-  | 'Meaningfulness and Participation'
-  | 'Workplace and Tools'
-  | 'Feedback and Commnucation'
-  | 'Health'
-  | 'Worklife balance'
-  | 'Happiness'
-  | 'Wellbeing'
-
-type Driver = {
-  name: DriverName
-  score: number
-  previousScore: number
-  icon: Icon
-  benchMark: BenchMark
 }
 
 function Container(props: ContainerProps) {
@@ -107,24 +27,6 @@ function Container(props: ContainerProps) {
         ))}
       </Paper>
     </Grid>
-  )
-}
-
-function Driver(props: DriverProps) {
-  const {
-    driver: { benchMark, name, score, icon },
-  } = props
-  return (
-    <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Box display="flex">
-        <MapToIcon icon={icon} />
-        <Box>
-          <Typography>{name}</Typography>
-          <Typography>{benchMark.name}</Typography>
-        </Box>
-      </Box>
-      <Typography>{score}</Typography>
-    </Box>
   )
 }
 
