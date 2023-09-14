@@ -6,7 +6,60 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { CheckCircleOutlined, RocketLaunch } from '@mui/icons-material'
+
+import {
+  Balance,
+  ChatBubble,
+  CheckCircleOutlined,
+  Devices,
+  EmojiNature,
+  EmojiEvents,
+  Favorite,
+  PeopleAlt,
+  RocketLaunch,
+  SentimentSatisfied,
+} from '@mui/icons-material'
+
+type Icon =
+  | 'balance'
+  | 'bubble'
+  | 'checkMark'
+  | 'computer'
+  | 'flower'
+  | 'heart'
+  | 'people'
+  | 'sentiment'
+  | 'trophy'
+
+type MapToIconProps = {
+  icon: Icon
+}
+
+function MapToIcon({ icon }: MapToIconProps) {
+  switch (icon) {
+    case 'balance':
+      return <Balance />
+    case 'bubble':
+      return <ChatBubble />
+    case 'checkMark':
+      return <CheckCircleOutlined />
+    case 'computer':
+      return <Devices />
+    case 'flower':
+      return <EmojiNature />
+    case 'heart':
+      return <Favorite />
+    case 'people':
+      return <PeopleAlt />
+    case 'sentiment':
+      return <SentimentSatisfied />
+    case 'trophy':
+      return <EmojiEvents />
+    default:
+      return null
+  }
+}
+
 import { useEffect, useState } from 'react'
 
 type ContainerProps = {
@@ -22,17 +75,6 @@ type BenchMark = {
   name: string
   score: number
 }
-
-type Icon =
-  | 'balance'
-  | 'bubble'
-  | 'checkMark'
-  | 'computer'
-  | 'flower'
-  | 'heart'
-  | 'people'
-  | 'sentiment'
-  | 'trophy'
 
 type DriverName =
   | 'Workload'
@@ -61,7 +103,7 @@ function Container(props: ContainerProps) {
       <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
         <Typography variant="h6">{title}</Typography>
         {drivers.map((driver) => (
-          <Driver driver={driver} />
+          <Driver driver={driver} key={driver.name} />
         ))}
       </Paper>
     </Grid>
@@ -70,12 +112,12 @@ function Container(props: ContainerProps) {
 
 function Driver(props: DriverProps) {
   const {
-    driver: { benchMark, name, score },
+    driver: { benchMark, name, score, icon },
   } = props
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
       <Box display="flex">
-        <CheckCircleOutlined sx={{ fontSize: 48 }} />
+        <MapToIcon icon={icon} />
         <Box>
           <Typography>{name}</Typography>
           <Typography>{benchMark.name}</Typography>
@@ -86,12 +128,12 @@ function Driver(props: DriverProps) {
   )
 }
 
-function sortHighestRating(drivers: Driver[]) {
-  return drivers.sort((driverA, driverB) => driverB.score - driverA.score)
+function sortHighestRating(d: Driver[]) {
+  return d.sort((driverA, driverB) => driverB.score - driverA.score)
 }
 
-function sortLowestRating(drivers: Driver[]) {
-  return drivers.sort((driverA, driverB) => driverA.score - driverB.score)
+function sortLowestRating(d: Driver[]) {
+  return d.sort((driverA, driverB) => driverA.score - driverB.score)
 }
 
 function App() {
@@ -141,12 +183,26 @@ function App() {
             <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
               <Typography variant="h6">Other</Typography>
               <Grid container spacing={isMedium ? 10 : 0}>
-                <Grid item xs={12} md={6}>
-                  {/* <Driver /> */}
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <Grid item>{/* <Driver /> */}</Grid>
-                </Grid>
+                {isMedium ? (
+                  <>
+                    <Grid item xs={12} md={6}>
+                      {drivers.slice(0, 3).map((driver) => (
+                        <Driver driver={driver} key={driver.name} />
+                      ))}
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      {drivers.slice(3, 6).map((driver) => (
+                        <Driver driver={driver} key={driver.name} />
+                      ))}
+                    </Grid>
+                  </>
+                ) : (
+                  drivers.map((driver) => (
+                    <Grid item xs={12} key={driver.name}>
+                      <Driver driver={driver} />
+                    </Grid>
+                  ))
+                )}
               </Grid>
             </Paper>
           </Grid>
