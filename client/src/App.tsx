@@ -1,6 +1,45 @@
-import { Box, Grid, Paper, Typography } from '@mui/material'
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
+import {
+  Box,
+  Grid,
+  Paper,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
+import { CheckCircleOutlined, RocketLaunch } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
+
+type ContainerProps = {
+  title: string
+}
+
+function Container(props: ContainerProps) {
+  const { title } = props
+
+  return (
+    <Grid item xs={12} md={6}>
+      <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
+        <Typography variant="h6">{title}</Typography>
+        <Driver />
+      </Paper>
+    </Grid>
+  )
+}
+
+function Driver() {
+  return (
+    <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box display="flex">
+        <CheckCircleOutlined sx={{ fontSize: 48 }} />
+        <Box>
+          <Typography>Workload</Typography>
+          <Typography>Benchmark - Media Telecom</Typography>
+        </Box>
+      </Box>
+      <Typography>4.1</Typography>
+    </Box>
+  )
+}
 
 function App() {
   const [state, setState] = useState(null)
@@ -17,6 +56,9 @@ function App() {
       })
   }, [state])
 
+  const theme = useTheme()
+  const isMedium = useMediaQuery(theme.breakpoints.up('md'))
+
   return (
     <Box
       sx={{
@@ -28,18 +70,26 @@ function App() {
     >
       <Box sx={{ height: '90%', width: '90%' }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <RocketLaunchIcon fontSize="medium" />
+          <RocketLaunch fontSize="medium" />
           <Typography variant="h5">Drivers</Typography>
         </Box>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={6}>
-            <Paper>Something</Paper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Paper>something elese</Paper>
-          </Grid>
+          <Container title="Highest rating" />
+          <Container title="Lowest rating" />
           <Grid item xs={12}>
-            <Paper>something more</Paper>
+            <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
+              <Typography variant="h6">Other</Typography>
+              <Grid container spacing={isMedium ? 10 : 0}>
+                <Grid item xs={12} md={6}>
+                  <Driver />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Grid item>
+                    <Driver />
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
       </Box>
