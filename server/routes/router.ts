@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import drivers from 'drivers'
+import drivers from 'routes/drivers'
 
 const router = Router()
 

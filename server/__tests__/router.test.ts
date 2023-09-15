@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from 'bun:test'
 import request from 'supertest'
 import express from 'express'
-import router from 'router'
+import router from 'routes/router'
 
 describe('router', () => {
   const app = express()
