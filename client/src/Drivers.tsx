@@ -68,11 +68,11 @@ function Drivers() {
         <Grid container spacing={4}>
           <Container
             title="Highest rating"
-            drivers={sortHighestRating(drivers.slice()).slice(0, 3)}
+            drivers={sortHighestRating(drivers).slice(0, 3)}
           />
           <Container
             title="Lowest rating"
-            drivers={sortLowestRating(drivers.slice()).slice(0, 3)}
+            drivers={sortLowestRating(drivers).slice(0, 3)}
           />
           <Grid item xs={12}>
             <Paper sx={{ padding: (theme) => theme.spacing(3) }}>
