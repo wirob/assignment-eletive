@@ -17,3 +17,7 @@ Read up on how to install Bun in their [official docs](https://bun.sh/docs/insta
 ### `bun dev`
 
 Runs the dev env
+
+### `bun test`
+
+Runs the tests in `__tests__` dir
