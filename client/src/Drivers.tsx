@@ -9,6 +9,7 @@ import {
 import { RocketLaunch } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
 import Driver from './Driver'
+import { sortHighestRating, sortLowestRating } from './lib/sorters'
 
 type ContainerProps = {
   title: string
@@ -28,14 +29,6 @@ function Container(props: ContainerProps) {
       </Paper>
     </Grid>
   )
-}
-
-function sortHighestRating(d: Driver[]) {
-  return d.sort((driverA, driverB) => driverB.score - driverA.score)
-}
-
-function sortLowestRating(d: Driver[]) {
-  return d.sort((driverA, driverB) => driverA.score - driverB.score)
 }
 
 function Drivers() {
